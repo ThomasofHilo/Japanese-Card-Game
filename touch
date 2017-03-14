@@ -1,0 +1,80 @@
+selectedField = nil
+initTouch = {nil,nil}
+isMoving = false
+function touched(touch)
+    --BEGAN
+    if touch.state == BEGAN and not selectedField then
+        for k,play in pairs(playingField) do
+            if touch.x > play.x and touch.x < play.x2
+            and touch.y > play.y and touch.y < play.y2 then
+                selectedField = play
+                initTouch.x, initTouch.y = touch.x, touch.y
+                print("selected field"..play[0])
+                break
+            end
+        end
+    end
+    
+    --MOVING
+    if touch.state == MOVING and selectedField then
+        if isMoving == true then
+            selectedField.dx = selectedField.dx + touch.deltaX
+            selectedField.dy = selectedField.dy + touch.deltaY
+        elseif isMoving == false then
+            if touch.x > selectedField.x + selectedField.dx
+            and touch.x < selectedField.x2 + selectedField.dx
+            and touch.y > selectedField.y + selectedField.dy
+            and touch.y < selectedField.y2 + selectedField.dy then
+                isMoving = true
+            end
+        end
+    end
+    
+    --ENDED
+    if touch.state == ENDED and selectedField then
+        isMoving = false
+        for k,v in pairs(playingField) do
+            if touch.x > v.x and touch.x < v.x2
+            and touch.y > v.y and touch.y < v.y2 then
+                move(selectedField, v)
+                selectedField.dx = 0
+                selectedField.dy = 0
+                selectedField = false
+                break
+            end
+        end
+    end
+end
+
+function move(selected, toMove)
+    if selected == toMove then
+        print "Unselected"
+        selected = nil
+    elseif selected[0] < toMove[0] then
+        if rules.noForward == true then
+            print " Invalid move - Rule: Cannot move forward "
+        elseif toMove[0] - selected[0] == 1 or toMove[0] - selected[0] == 3 then
+            local s = #selected
+            for i = 1, s do
+                table.insert(selected, toMove[i])
+                toMove[i] = nil
+            end
+        else
+            print " Invalid move "
+        end
+    elseif selected[0] - toMove[0] == 1 or selected[0] - toMove[0] == 3 then
+        if selected[#selected]%13 == toMove[#toMove]%13
+        or selected[#selected]%4 == toMove[#toMove]%4 then
+            local s = #selected
+            for i = 1, s do
+                table.insert(toMove, selected[i])
+                selected[i] = nil
+            end
+        else
+            print "Invalid move - Cards must be of the same suit or rank"
+        end
+    else
+        print " Invalid move "
+
+    end
+end
