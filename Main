@@ -1,0 +1,26 @@
+-- Cardgame
+
+-- Use this function to perform your initial setup
+function setup()
+    print("Hello World!")
+    newGame()
+end
+
+-- This function gets called once every frame
+function draw()
+    -- This sets a dark background color 
+    background(40, 40, 50)
+    strokeWidth(5)
+    rectMode(CORNERS)
+    pushStyle()
+    fill(168)
+    stroke(252)
+    strokeWidth(2)
+    for k,v in pairs(playingField) do
+        rect(v.x + v.dx, v.y + v.dy, v.x2 + v.dx, v.y2 + v.dy)
+    end
+    popStyle()
+    -- Do your drawing here
+    
+end
+
