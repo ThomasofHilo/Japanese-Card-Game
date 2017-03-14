@@ -1,0 +1,46 @@
+ranks = {"queen", "jack", 10,9,8,7,6,5,4,3,2,"ace"}
+ranks[0] = "king"
+suits = { "clubs", "spades", "diamonds"}
+suits[0] = "hearts"
+function newDeck(n)
+    local deck = {}
+    for i = 1, n do
+        deck[i] = i
+    end
+    print "new deck"
+    return( deck )
+end
+
+function shuffle(d)
+    local j
+    local iterator = #d
+    local r = math.random
+    for i = iterator, 2, -1 do
+        j = r(iterator)
+        d[i], d[j] = d[j], d[i]
+    end
+    print "shuffled deck"
+end
+
+function deal(deck, field)
+
+    local suit, rank
+    for i,v in ipairs(field) do
+        if not v[1] then
+            suit = deck[#deck]%4
+            rank = deck[#deck]%13
+            deck[#deck], v[1] = nil, deck[#deck]
+            break
+        end
+    end
+    print(suit, rank)
+    print( "dealt card:"..ranks[rank].." of "..suits[suit])
+end
+function newGame( file )
+    deck = newDeck(104)
+    shuffle(deck)
+    playingField = playArea()
+    deal(deck, playingField)
+end
+
+
