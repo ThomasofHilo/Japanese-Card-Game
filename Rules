@@ -1,0 +1,11 @@
+-- THERE'S ONLY ONE RULE HERE RIGHT NOW. BUT THE GAME ACTUALLY HAS A FEW.
+
+rules = {}
+
+rules.noForward = false
+
+print "RULES"
+for k, v in pairs(rules) do
+    print(k, "=", v)
+end
+print "END"
