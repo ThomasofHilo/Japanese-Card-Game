@@ -4,7 +4,7 @@ isMoving = false
 function touched(touch)
     --BEGAN
     if touch.state == BEGAN and not selectedField then
-        for k,play in pairs(playingField) do
+        for k,play in ipairs(playingField) do
             if touch.x > play.x and touch.x < play.x2
             and touch.y > play.y and touch.y < play.y2 then
                 selectedField = play
@@ -33,20 +33,23 @@ function touched(touch)
     --ENDED
     if touch.state == ENDED and selectedField then
         isMoving = false
-        for k,v in pairs(playingField) do
+        for i,v in ipairs(playingField) do
             if touch.x > v.x and touch.x < v.x2
-            and touch.y > v.y and touch.y < v.y2 then
-                move(selectedField, v)
+            and touch.y > v.y and touch.y < v.y2
+            --and v ~= selectedField 
+                then
+                move(selectedField, v, 16)
                 selectedField.dx = 0
                 selectedField.dy = 0
-                selectedField = false
+                selectedField = nil
                 break
             end
         end
     end
+    
+    hit:touched(touch)
 end
 
-function move(selected, toMove)
     if selected == toMove then
         print "Unselected"
         selected = nil
