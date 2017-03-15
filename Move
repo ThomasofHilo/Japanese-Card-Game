@@ -1,0 +1,54 @@
+--[0] is where i store the index
+
+function is_rank_or_suit(a, b)
+    if a and b then 
+        if a%13 == b%13 or a%4 == b%4 then
+            return( true )
+        end
+    end
+end
+
+
+function move(selected, toMove)
+    
+    -- make sure these aren't the same
+    
+    if selected == toMove then
+        print "Unselected"
+        selected = nil
+        
+    -- compare indexes
+        
+    elseif selected[0] < toMove[0] then
+        if rules.noForward == true then
+            print " Invalid move - Rule: Cannot move forward "
+            
+        -- Check if forward move is valid by comparing suit and rank
+            
+        elseif toMove[0] - selected[0] == 1 or toMove[0] - selected[0] == 3 then
+            if is_rank_or_suit( selected[1], toMove[1] ) == true then
+                selected[1], toMove[1] = nil, selected[1]
+                
+                -- Insert code for moving things up after a move is made here
+                
+            end
+        else
+            print " Invalid move "
+        end
+        
+    -- Check if backward move is valid
+        
+    elseif selected[0] - toMove[0] == 1 or selected[0] - toMove[0] == 3 then
+        if is_rank_or_suit( selected[1], toMove[1] ) == true then            
+            selected[1], toMove[1] = nil, selected[1]
+            
+            -- Insert code for moving cards up an index after a move is made
+            
+        else
+            print "Invalid move - Cards must be of the same suit or rank"
+        end
+    else
+        print " Invalid move "
+
+    end
+end
