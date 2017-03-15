@@ -52,3 +52,9 @@ function move(selected, toMove)
 
     end
 end
+
+    else
+        print " Invalid move "
+
+    end
+end
