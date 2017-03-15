@@ -1,0 +1,16 @@
+hit = {}
+
+hit.x = 40
+hit.x2 = 240
+hit.y = 468
+hit.y2 = 708
+function hit:draw()
+    spriteMode(CORNERS)
+    sprite("Documents:back", self.x, self.y, self.x2, self.y2)
+end
+function hit:touched(touch)
+    if touch.state == ENDED and touch.x > self.x and touch.x < self.x2
+    and touch.y > self.y and touch.y < self.y2 then
+        deal(deck, playingField)
+    end
+end
