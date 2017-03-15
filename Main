@@ -4,23 +4,33 @@
 function setup()
     print("Hello World!")
     newGame()
+    --for i = 1,16 do
+        deal(deck, playingField)
+    --end
 end
 
+tickTime = 0
 -- This function gets called once every frame
 function draw()
+    tickTime = tickTime + 1
     -- This sets a dark background color 
     background(40, 40, 50)
     strokeWidth(5)
     rectMode(CORNERS)
+    spriteMode(CORNERS)
     pushStyle()
     fill(168)
     stroke(252)
     strokeWidth(2)
-    for k,v in pairs(playingField) do
+    for i,v in ipairs(playingField) do
         rect(v.x + v.dx, v.y + v.dy, v.x2 + v.dx, v.y2 + v.dy)
+        drawcard(v)
+    end
+    if selectedField ~= nil then
+        drawcard(selectedField)
     end
     popStyle()
     -- Do your drawing here
-    
+    hit:draw()
 end
 
