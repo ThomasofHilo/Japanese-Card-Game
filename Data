@@ -24,18 +24,21 @@ end
 
 function deal(deck, field)
     local suit, rank
+    local didDeal = false
     for i,v in ipairs(field) do
         if v[1] == nil then
             suit = deck[#deck]%4
             rank = deck[#deck]%13
             deck[#deck], v[1] = nil, deck[#deck]
-            print(suit, rank)
+            print("rank="..rank, "suit="..suit)
             print( "dealt card:"..ranks[rank]..suits[suit])
+            didDeal = true
             break
         end
     end
-    
-    print "No space to deal"
+    if didDeal == false then
+        print "No space to deal"
+    end
 end
 function newGame( file )
     deck = newDeck(52)
