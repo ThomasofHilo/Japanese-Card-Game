@@ -1,7 +1,7 @@
-ranks = {"queen", "jack", 10,9,8,7,6,5,4,3,2,"ace"}
+ranks = {"queen", "jack","10", "9", "8", "7", "6", "5", "4", "3", "2","ace"}
 ranks[0] = "king"
-suits = { "clubs", "spades", "diamonds"}
-suits[0] = "hearts"
+suits = { "club", "spade", "diamond"}
+suits[0] = "heart"
 function newDeck(n)
     local deck = {}
     for i = 1, n do
@@ -23,24 +23,24 @@ function shuffle(d)
 end
 
 function deal(deck, field)
-
     local suit, rank
     for i,v in ipairs(field) do
-        if not v[1] then
+        if v[1] == nil then
             suit = deck[#deck]%4
             rank = deck[#deck]%13
             deck[#deck], v[1] = nil, deck[#deck]
+            print(suit, rank)
+            print( "dealt card:"..ranks[rank]..suits[suit])
             break
         end
     end
-    print(suit, rank)
-    print( "dealt card:"..ranks[rank].." of "..suits[suit])
+    
+    print "No space to deal"
 end
 function newGame( file )
-    deck = newDeck(104)
+    deck = newDeck(52)
     shuffle(deck)
     playingField = playArea()
-    deal(deck, playingField)
 end
 
 
